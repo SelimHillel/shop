@@ -13,14 +13,14 @@ namespace interfaces
         public Catalog()
         {
             ProductList = new List<IProduct>();
-            Filters = new Dictionary<string, object>();
+            Filters = new Dictionary<string, string>();
         }
 
         public int Id { get; set; }
         public IEnumerable<string> Category { get; set; }
         public string Search { get; set; }
         public int Sort { get; set; }
-        public Dictionary<string, object> Filters { get; set; }
+        public Dictionary<string, string> Filters { get; set; }
         public int Pagenumber { get; set; }
         public string URL { get; set; }
         public List<IProduct> ProductList { get; set; }
@@ -76,33 +76,48 @@ namespace interfaces
 
         }
 
-
-
-        List<IProduct> SearchInCatalog(string keyWord)
+        void CatalogSearch()
         {
-            var resultSearch = new List<IProduct>();
+            var resultProductList = new List<IProduct>();
 
             foreach (var product in ProductList)
             {
-                if (keyWord == product.Name || Convert.ToUInt32(keyWord) == product.Id)
+                if (product.Name.IndexOf("Searchkey") < 0)
                 {
-                    resultSearch.Add(product);
+                    continue;
                 }
-                else
+
+                if (product.Description.IndexOf("Searchkey") < 0)
                 {
-                    foreach (var category in product.Categories)
+                    continue;
+                }
+
+
+                var FilterFlag = true;
+                foreach (var spec in product.Specifications)
+                {
+                    if (spec.Value.IndexOf("Searchkey") < 0)
                     {
-                        if (keyWord == category)
-                        {
-                            resultSearch.Add(product);
-                        }
-                    }              
+                        FilterFlag = false;
+                        break;
+                    }
                 }
-                                   
+
+                if (!FilterFlag)
+                {
+                    continue;
+                }
+
+                ProductList = resultProductList;
+
             }
-            return resultSearch;
+
+
         }
+
+
     }
+    
 }
 
 
