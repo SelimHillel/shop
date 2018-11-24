@@ -78,29 +78,30 @@ namespace interfaces
 
 
 
-        void CatalogSearch()
+        List<IProduct> SearchInCatalog(string keyWord)
         {
-            Console.WriteLine("Enter search key");
-            string searchKey = Console.ReadLine(); //помешаем поисковый ключ в строку
+            var resultSearch = new List<IProduct>();
 
-            var resultProductList = new List<IProduct>(); //создаём итоговый список товаров
-
-            foreach (var product in ProductList) //перебираем продукты в списке
+            foreach (var product in ProductList)
             {
-                if (product.Name != searchKey) //если имя продукта не соотв. поисковому ключу
+                if (keyWord == product.Name || Convert.ToUInt32(keyWord) == product.Id)
                 {
-                    continue;//не придёт к add
+                    resultSearch.Add(product);
                 }
-
-                resultProductList.Add(product); //иначе добавляем продукт в итоговый список
+                else
+                {
+                    foreach (var category in product.Categories)
+                    {
+                        if (keyWord == category)
+                        {
+                            resultSearch.Add(product);
+                        }
+                    }              
+                }
+                                   
             }
-
-            ProductList = resultProductList; //список продуктов это итоговый список
-
-
-
+            return resultSearch;
         }
-
     }
 }
 
