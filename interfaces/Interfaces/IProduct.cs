@@ -13,7 +13,7 @@ namespace interfaces.Interfaces
         int Quantity { get; set; }
         string Description { get; set; }
         Dictionary<string, string> PaymentMethods { get; set; }  //ключ, характеристика
-        Dictionary<string, object> Specifications { get; set; } //ключ, характеристика
+        Dictionary<string, string> Specifications { get; set; } //ключ, характеристика
         IEnumerable<string> Pic { get; set; }
         //ISale SpecialOffer { get; set; }  //метод интерфейс акции
         IEnumerable<string> Categories { get; set; }  //список категорий, к которым он пренадлежит

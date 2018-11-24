@@ -10,7 +10,7 @@ namespace interfaces.Interfaces
         List<IProduct> ProductList { get ; set; }
         string Search { get; set; }
         int Sort { get; set; } //id типа сортировки который применён
-        Dictionary<string, object> Filters { get; set; } //словарь: цвет, чёрный
+        Dictionary<string, string> Filters { get; set; } //словарь: цвет, чёрный
         int Pagenumber { get; set; } //на какой странице каталога
         string URL { get; set; }
     
