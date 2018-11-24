@@ -125,11 +125,13 @@ namespace interfaces
                 if (product.Name.IndexOf(Search) != -1)
                 {
                     resultProductList.Add(product);
+                    continue;
                 }
 
                 if (product.Description != null && product.Description.IndexOf(Search) != -1)
                 {
                     resultProductList.Add(product);
+                    continue;
                 }
 
                 foreach (var spec in product.Specifications)
@@ -137,11 +139,13 @@ namespace interfaces
                     if (spec.Key.IndexOf(Search) != -1)
                     {
                         resultProductList.Add(product);
+                        continue;
                     }
 
                     if (spec.Value.IndexOf(Search) != -1)
                     {
                         resultProductList.Add(product);
+                        continue;
                     }
                 }
             }
