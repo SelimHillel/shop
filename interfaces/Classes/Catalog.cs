@@ -74,42 +74,85 @@ namespace interfaces
                 ProductList = resultProductList;
             }
 
+            var list = ProductList.Select(x => x.Name).ToList(); //выводим только названия из отфильтрованных продуктов
+
+            foreach (var val in list)
+            {
+                Console.WriteLine(val);
+            }
+
         }
 
         void CatalogSearch()
         {
-            var resultProductList = new List<IProduct>();
+            //var resultProductList = new List<IProduct>();
 
+            //foreach (var product in ProductList)
+            //{
+            //    if (product.Name.IndexOf("Searchkey") < 0)
+            //    {
+            //        continue;
+            //    }
+
+            //    if (product.Description.IndexOf("Searchkey") < 0)
+            //    {
+            //        continue;
+            //    }
+
+
+            //    var FilterFlag = true;
+            //    foreach (var spec in product.Specifications)
+            //    {
+            //        if (spec.Value.IndexOf("Searchkey") < 0)
+            //        {
+            //            FilterFlag = false;
+            //            break;
+            //        }
+            //    }
+
+            //    if (!FilterFlag)
+            //    {
+            //        continue;
+            //    }
+
+            //    ProductList = resultProductList;
+
+            //}
+
+            var resultProductList = new List<IProduct>();
             foreach (var product in ProductList)
             {
-                if (product.Name.IndexOf("Searchkey") < 0)
+                if (product.Name.IndexOf(Search) != -1)
                 {
-                    continue;
+                    resultProductList.Add(product);
                 }
 
-                if (product.Description.IndexOf("Searchkey") < 0)
+                if (product.Description != null && product.Description.IndexOf(Search) != -1)
                 {
-                    continue;
+                    resultProductList.Add(product);
                 }
 
-
-                var FilterFlag = true;
                 foreach (var spec in product.Specifications)
                 {
-                    if (spec.Value.IndexOf("Searchkey") < 0)
+                    if (spec.Key.IndexOf(Search) != -1)
                     {
-                        FilterFlag = false;
-                        break;
+                        resultProductList.Add(product);
+                    }
+
+                    if (spec.Value.IndexOf(Search) != -1)
+                    {
+                        resultProductList.Add(product);
                     }
                 }
+            }
 
-                if (!FilterFlag)
-                {
-                    continue;
-                }
+            ProductList = resultProductList;
 
-                ProductList = resultProductList;
+            var list = ProductList.Select(x => x.Name).ToList();
 
+            foreach (var val in list)
+            {
+                Console.WriteLine(val);
             }
 
 
